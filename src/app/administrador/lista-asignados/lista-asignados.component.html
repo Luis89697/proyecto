@@ -1,0 +1,72 @@
+<div class="max-w-screen-lg mx-auto p-6">
+    <h1 class="text-2xl font-bold text-center mb-4">Equipos Asignados a tecnicos</h1>
+    <div class="flex justify-end mb-4">
+        <!--
+        <div class="flex items-center bg-white border border-gray-300 rounded-lg px-3 py-2 space-x-2">
+            <i class="bi bi-search text-gray-600 text-lg"></i>
+            <input type="text" id="buscar" name="buscar" placeholder="Buscar" class="w-40 outline-none text-sm font-medium text-gray-900">
+            <select class="bg-white border border-gray-300 text-gray-900 py-2 px-4 rounded-lg outline-none text-sm font-medium">
+                <option value="nombre">Buscar por Nombre</option>
+                <option value="correo">Buscar por Correo</option>
+            </select>
+        </div>-->
+    </div>
+
+    <div class="container mx-auto px-4 py-8">
+        <div class="overflow-x-auto">
+          <table class="min-w-full bg-white">
+            <thead>
+              <tr>
+                <th class="py-2 px-4 border-b border-gray-200">Equipo</th>
+                <th class="py-2 px-4 border-b border-gray-200">Técnico</th>
+                <th class="py-2 px-4 border-b border-gray-200">Estatus</th>
+                <th class="py-2 px-4 border-b border-gray-200">Comentarios Técnico</th>
+                <th class="py-2 px-4 border-b border-gray-200">Comentarios Admin</th>
+                <th class="py-2 px-4 border-b border-gray-200">Fecha Actualización</th>
+                <th class="py-2 px-4 border-b border-gray-200">Estatus Anterior</th>
+                <th class="py-2 px-4 border-b border-gray-200">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let equipo of equiposAsignados" class="border-b border-gray-200">
+                <td class="py-2 px-4">{{ equipo.id_equipo.marca }} {{ equipo.id_equipo.modelo }}</td>
+                <td class="py-2 px-4">{{ equipo.id_tecnico.nombre }} {{ equipo.id_tecnico.apellidos }}</td>
+                <td class="py-2 px-4">{{ equipo.estatus }}</td>
+                <td class="py-2 px-4">{{ equipo.comentarios_Tecnico }}</td>
+                <td class="py-2 px-4">{{ equipo.comentarios_Admin }}</td>
+                <td class="py-2 px-4">{{ equipo.estatus_updated_at | date:'short' }}</td>
+                <td class="py-2 px-4">{{ equipo.estatus_anterior }}</td>
+                <td class="py-2 px-4">
+                    <span class="text-teal-500 hover:cursor-pointer" (click)="openModal(equipo)">ver mas</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+</div>
+
+<div id="modal-asignar2" [class.hidden]="!isModalOpen" class="fixed inset-0 flex items-center justify-center z-50">
+  <div class="fixed inset-0 bg-gray-800 bg-opacity-50" (click)="closeModal()"></div>
+  <div class="relative bg-white rounded-lg shadow p-6 w-full max-w-sm z-10">
+    <div class="flex justify-between items-center border-b pb-4">
+      <h3 class="text-xl font-semibold text-gray-900">Detalles de el equipo</h3>
+      <button (click)="closeModal()" class="text-gray-500 hover:text-gray-700">
+        <i class="bi bi-x-lg w-6 h-6"></i>
+      </button>
+    </div>
+    <form>
+      <div class="py-4">
+        <!-- Aquí puedes agregar texto-->
+         <div class="mt-2">
+            <label for="tecnico">Tecnico asignado</label>
+            <input type="text" name="tecnico"  id="">
+         </div>
+      </div>
+      <div class="flex justify-end space-x-4 pt-4 border-t">
+        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">Asignar</button>
+        <button type="button" (click)="closeModal()" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
